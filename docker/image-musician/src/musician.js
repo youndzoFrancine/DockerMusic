@@ -1,7 +1,7 @@
 ﻿/*
- *This program simulates someone who plays an instrument in an orchestra. 
+ *This program simulates someone who plays an instrument in an orchestra.
  *When the app is started, it is assigned an instrument (piano, flute, etc.).
- * As long as it is running, every second it will emit a sound (well... simulate the emission of a sound: 
+ * As long as it is running, every second it will emit a sound (well... simulate the emission of a sound:
  * we are talking about a communication protocol). Of course, the sound depends on the instrument.
  */
 /*
@@ -10,6 +10,8 @@
 var PROTOCOL_PORT = 2205;
 var PROTOCOL_MULTICAST_ADDRESS = "239.255.22.5";
 var net = require('net');
+var async = require("async");
+var expect = require('chai').expect;
 var uuid = require('node-uuid'); //module pour generer le uuid
 
 //we use a standard node.js module to work with udp
@@ -19,9 +21,9 @@ var dgram = require('dgram');
 var dgramSocket = dgram.createSocket('udp4');
 
 //detect the sound according the instrument
-var soundDetection = function(instrument) {
+var soundDetection = function(instr) {
     var tmpSound = null;
-    switch (instrument) {
+    switch (instr) {
 
         case "piano":
             tmpSound = "ti-ta-ti";
@@ -67,7 +69,7 @@ function Musician(instrument) {
         dgramSocket.send(message, 0, message.length, PROTOCOL_PORT, PROTOCOL_MULTICAST_ADDRESS, function(err, byte) {
             console.log("Sending payload: " + payload + " via port " + dgramSocket.address().port);
         });
-    };
+    }
 
     setInterval(this.createMessage.bind(this), 1000);
 

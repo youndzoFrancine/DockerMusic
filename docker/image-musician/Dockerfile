@@ -5,13 +5,11 @@ MAINTAINER Francine Youndzo <francine.youndzok@heig-vd.ch>
 # When we build the image, we copy the executable jar in the image file system. 
 #
 
+ADD src /opt/app/
 
 WORKDIR /opt/app/
-RUN npm install moment
-RUN npm Install node-uuid
 
-EXPOSE src 2205
+RUN npm install 
 
-COPY src /opt/app/
 
 ENTRYPOINT ["node", "/opt/app/musician.js"]
