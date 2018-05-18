@@ -7,7 +7,7 @@
 /*
  * Include standard and third-party npm modules
  */
-var PROTOCOL_PORT = 2205;
+var PROTOCOL_PORT = 9907;
 var PROTOCOL_MULTICAST_ADDRESS = "239.255.22.5";
 var net = require('net');
 var async = require("async");
